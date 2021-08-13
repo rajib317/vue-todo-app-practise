@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div v-theme="siteName.darkmode">
+    <app-header
+      v-on:darkmodeswitch="siteName.darkmode = !siteName.darkmode"
+      v-bind:sitename="siteName"
+    ></app-header>
+    <!-- <app-body></app-body> -->
+    <div class="col-8 m-auto">
+      <router-view></router-view>
+    </div>
+    <app-footer v-bind:sitename="siteName"></app-footer>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import appHeader from './components/header.vue';
+import appFooter from './components/footer.vue';
 
 export default {
-  name: 'App',
+  data: function() {
+    return {
+      siteName: { name: 'Todo App', year: 2021, darkmode: false },
+    };
+  },
   components: {
-    HelloWorld
-  }
-}
+    appHeader,
+    appFooter,
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
